@@ -112,3 +112,54 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function createArticle(title, date, p1, p2, p3) {
+  let div = document.createElement('div');
+  let h2 = document.createElement('h2');
+  let dateCreated = document.createElement('p');
+  let firstP = document.createElement('p');
+  let secondP = document.createElement('p');
+  let thirdP = document.createElement('p');
+  let span = document.createElement('span');
+
+  div.classList.add("article");
+  dateCreated.classList.add("date");
+  span.classList.add("expandButton");
+
+  h2.textContent = title;
+  dateCreated.textContent = date;
+  firstP.textContent = p1;
+  secondP.textContent = p2;
+  thirdP.textContent = p3;
+
+  span.addEventListener('click', () => {
+    div.classList.toggle("article-open");
+  });
+
+  div.appendChild(h2);
+  div.appendChild(dateCreated);
+  div.appendChild(firstP);
+  div.appendChild(secondP);
+  div.appendChild(thirdP);
+  div.appendChild(span);
+
+  return div;
+}
+
+let mappedData = data.map((item) => {
+  let title = item.title;
+  let date = item.date;
+  let p1 = item.firstParagraph;
+  let p2 = item.secondParagraph;
+  let p3 = item.thirdParagraph;
+
+  let newArticle = createArticle(title, date, p1, p2, p3);
+
+  return newArticle;
+});
+
+let parentDiv = document.querySelector('.articles');
+
+mappedData.forEach((article) => {
+  parentDiv.appendChild(article);
+});
