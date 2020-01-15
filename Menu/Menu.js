@@ -57,5 +57,5 @@ function menu(array) {
   return div;
 };
 
-let header = document.querySelector('.menu-button');
+let header = document.querySelector('.header');
 header.prepend(menu(menuItems));
