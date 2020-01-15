@@ -147,6 +147,7 @@ function createArticle(title, date, p1, p2, p3) {
   firstP.textContent = p1;
   secondP.textContent = p2;
   thirdP.textContent = p3;
+  span.textContent = "Read the Article";
 
   span.addEventListener('click', () => {
     div.classList.toggle("article-open");
