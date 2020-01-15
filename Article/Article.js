@@ -136,29 +136,46 @@ function createArticle(title, date, p1, p2, p3) {
   let firstP = document.createElement('p');
   let secondP = document.createElement('p');
   let thirdP = document.createElement('p');
-  let span = document.createElement('span');
+  let buttonDiv = document.createElement('div');
+  let spanOpen = document.createElement('span');
+  let spanClose = document.createElement('span');
 
   div.classList.add("article");
   dateCreated.classList.add("date");
-  span.classList.add("expandButton");
+  spanOpen.classList.add("expandButton");
+  spanClose.classList.add("expandButton", "hide");
 
   h2.textContent = title;
   dateCreated.textContent = date;
   firstP.textContent = p1;
   secondP.textContent = p2;
   thirdP.textContent = p3;
-  span.textContent = "Read the Article";
+  spanOpen.textContent = "Read the Article";
+  spanClose.textContent = "Close Article";
 
-  span.addEventListener('click', () => {
-    div.classList.toggle("article-open");
+  spanOpen.addEventListener('click', () => {
+    div.classList.add("article-open");
+    spanOpen.classList.toggle("hide");
+    spanClose.classList.toggle("hide");
   });
+
+  spanClose.addEventListener('click', () => {
+    div.classList.remove("article-open");
+    spanOpen.classList.toggle("hide");
+    spanClose.classList.toggle("hide");
+  });
+
+  buttonDiv.appendChild(spanOpen);
+  buttonDiv.appendChild(spanClose);
+
+  console.log(buttonDiv);
 
   div.appendChild(h2);
   div.appendChild(dateCreated);
   div.appendChild(firstP);
   div.appendChild(secondP);
   div.appendChild(thirdP);
-  div.appendChild(span);
+  div.appendChild(buttonDiv);
 
   return div;
 }
