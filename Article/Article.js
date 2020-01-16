@@ -85,6 +85,22 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Learning JS Components Quickly',
+    date: 'Jan 14th, 2020',
+    firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
 
@@ -112,3 +128,72 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function createArticle(title, date, p1, p2, p3) {
+  let div = document.createElement('div');
+  let h2 = document.createElement('h2');
+  let dateCreated = document.createElement('p');
+  let firstP = document.createElement('p');
+  let secondP = document.createElement('p');
+  let thirdP = document.createElement('p');
+  let buttonDiv = document.createElement('div');
+  let spanOpen = document.createElement('span');
+  let spanClose = document.createElement('span');
+
+  div.classList.add("article");
+  dateCreated.classList.add("date");
+  spanOpen.classList.add("expandButton");
+  spanClose.classList.add("expandButton", "hide");
+
+  h2.textContent = title;
+  dateCreated.textContent = date;
+  firstP.textContent = p1;
+  secondP.textContent = p2;
+  thirdP.textContent = p3;
+  spanOpen.textContent = "Read the Article";
+  spanClose.textContent = "Close Article";
+
+  spanOpen.addEventListener('click', () => {
+    div.classList.add("article-open");
+    spanOpen.classList.toggle("hide");
+    spanClose.classList.toggle("hide");
+  });
+
+  spanClose.addEventListener('click', () => {
+    div.classList.remove("article-open");
+    spanOpen.classList.toggle("hide");
+    spanClose.classList.toggle("hide");
+  });
+
+  buttonDiv.appendChild(spanOpen);
+  buttonDiv.appendChild(spanClose);
+
+  console.log(buttonDiv);
+
+  div.appendChild(h2);
+  div.appendChild(dateCreated);
+  div.appendChild(firstP);
+  div.appendChild(secondP);
+  div.appendChild(thirdP);
+  div.appendChild(buttonDiv);
+
+  return div;
+}
+
+let mappedData = data.map((item) => {
+  let title = item.title;
+  let date = item.date;
+  let p1 = item.firstParagraph;
+  let p2 = item.secondParagraph;
+  let p3 = item.thirdParagraph;
+
+  let newArticle = createArticle(title, date, p1, p2, p3);
+
+  return newArticle;
+});
+
+let parentDiv = document.querySelector('.articles');
+
+mappedData.forEach((article) => {
+  parentDiv.appendChild(article);
+});
